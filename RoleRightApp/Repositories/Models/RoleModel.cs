@@ -1,9 +1,9 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 
-namespace RoleRightApp.Repositories;
+namespace RoleRightApp.Repositories.Models;
 
 [DynamoDBTable("role")]
-public class Role
+public class RoleModel
 {
     [DynamoDBHashKey("roleId")]
     public string RoleId { get; set; }

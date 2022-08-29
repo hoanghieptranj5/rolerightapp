@@ -1,27 +1,23 @@
-﻿using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DataModel;
-using Microsoft.AspNetCore.Mvc;
-using RoleRightApp.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
+using RoleRightApp.Repositories.Abstractions;
 
 namespace RoleRightApp.Controllers;
 
 [Route("api/[controller]")]
 public class ValuesController : ControllerBase
 {
-    private readonly IDynamoDBContext _dbContext;
+    private readonly IRoleRepository _roleRepository;
 
-    public ValuesController(IDynamoDBContext dbContext)
+    public ValuesController(IRoleRepository roleRepository)
     {
-        _dbContext = dbContext;
+        _roleRepository = roleRepository;
     }
 
     // GET api/values
-    [HttpGet("haha")]
-    public async Task<IActionResult> GetABC()
+    [HttpGet("allRoles")]
+    public async Task<IActionResult> GetAllRoles()
     {
-        var result = await _dbContext
-            .ScanAsync<Role>(Array.Empty<ScanCondition>())
-            .GetRemainingAsync();
+        var result = await _roleRepository.GetAllRoles();
         
         return Ok(result);
     }

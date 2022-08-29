@@ -2,6 +2,7 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Microsoft.OpenApi.Models;
+using RoleRightApp.ExtensionMethods;
 
 namespace RoleRightApp;
 
@@ -35,6 +36,9 @@ public class Startup
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             swagger.IncludeXmlComments(xmlPath);
         });
+        
+        // Custom Configurations HERE
+        services.ConfigureRepositories();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
