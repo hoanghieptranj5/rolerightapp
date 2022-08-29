@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using Microsoft.OpenApi.Models;
 
 namespace RoleRightApp;
@@ -15,6 +17,13 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container
     public void ConfigureServices(IServiceCollection services)
     {
+        var awsOptions = Configuration.GetAWSOptions();
+
+        services.AddDefaultAWSOptions(awsOptions);
+        services.AddAWSService<IAmazonDynamoDB>();
+
+        services.AddScoped<IDynamoDBContext, DynamoDBContext>();
+        
         services.AddCors();
         
         services.AddControllers();

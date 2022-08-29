@@ -1,10 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
+using Microsoft.AspNetCore.Mvc;
+using RoleRightApp.Repositories;
 
 namespace RoleRightApp.Controllers;
 
 [Route("api/[controller]")]
 public class ValuesController : ControllerBase
 {
+    private readonly IDynamoDBContext _dbContext;
+
+    public ValuesController(IDynamoDBContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+
+    // GET api/values
+    [HttpGet("haha")]
+    public async Task<IActionResult> GetABC()
+    {
+        var result = await _dbContext
+            .ScanAsync<Role>(Array.Empty<ScanCondition>())
+            .GetRemainingAsync();
+        
+        return Ok(result);
+    }
+    
     // GET api/values
     [HttpGet]
     public IEnumerable<string> Get()
