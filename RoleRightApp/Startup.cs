@@ -1,8 +1,12 @@
 ﻿using System.Reflection;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RoleRightApp.ExtensionMethods;
+
 
 namespace RoleRightApp;
 
@@ -29,14 +33,28 @@ public class Startup
         
         services.AddControllers();
 
-        services.AddSwaggerGen(swagger =>
-        {
-            swagger.SwaggerDoc("v1", new OpenApiInfo() { Title = "Customer API"});
-            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-            swagger.IncludeXmlComments(xmlPath);
-        });
-        
+        services.ConfigureSwagger();
+
+        services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JWT:ValidAudience"],
+                    ValidIssuer = Configuration["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                };
+            });
+
         // Custom Configurations HERE
         services.ConfigureRepositories();
         services.ConfigureAutoMappers();
@@ -71,6 +89,7 @@ public class Startup
             c.RoutePrefix = "swagger";
         });
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>

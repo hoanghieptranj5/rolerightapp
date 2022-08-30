@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RoleRightApp.Repositories.Abstractions;
 
 namespace RoleRightApp.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 public class ValuesController : ControllerBase
 {

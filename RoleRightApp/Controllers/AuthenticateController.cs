@@ -15,10 +15,12 @@ namespace RoleRightApp.Controllers;
 [ApiController]
 public class AuthenticateController : ControllerBase
 {
+    private readonly IConfiguration _configuration;
     private readonly IUserLogic _userLogic;
-
-    public AuthenticateController(IUserLogic userLogic)
+    
+    public AuthenticateController(IConfiguration configuration, IUserLogic userLogic)
     {
+        _configuration = configuration;
         _userLogic = userLogic;
     }
 
@@ -44,11 +46,11 @@ public class AuthenticateController : ControllerBase
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
-        var authSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SecretHereBuajsdlkaj;sdjlkajsdlk;ja;lsjd;lkasjdlkjaslkdj;lajs;lkdjal;ksjdl;kajs;lkdjalksjd;lkajd"));
+        var authSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
         var token = new JwtSecurityToken(
-            issuer: "haha", 
-            audience: "audience",
+            issuer: _configuration["JWT:ValidIssuer"],  
+            audience: _configuration["JWT:ValidAudience"],
             expires: DateTime.Now.AddHours(1),
             claims: authClaims,
             signingCredentials: new SigningCredentials(authSigninKey, SecurityAlgorithms.HmacSha256));
