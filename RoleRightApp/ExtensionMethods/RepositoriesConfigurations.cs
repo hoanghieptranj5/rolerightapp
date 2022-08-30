@@ -1,4 +1,6 @@
-﻿using RoleRightApp.Repositories.Abstractions;
+﻿using RoleRightApp.Logics.Abstractions;
+using RoleRightApp.Logics.Implementations;
+using RoleRightApp.Repositories.Abstractions;
 using RoleRightApp.Repositories.Implementations;
 
 namespace RoleRightApp.ExtensionMethods;
@@ -9,5 +11,7 @@ public static class RepositoriesConfigurations
     {
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IUserLogic, UserLogic>();
     }
 }

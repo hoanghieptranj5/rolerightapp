@@ -39,6 +39,7 @@ public class Startup
         
         // Custom Configurations HERE
         services.ConfigureRepositories();
+        services.ConfigureAutoMappers();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
