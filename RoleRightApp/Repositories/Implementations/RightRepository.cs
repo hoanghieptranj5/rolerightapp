@@ -14,4 +14,15 @@ public class RightRepository : HashKeyOnlyRepositoryBase<RightModel, string>, IR
     {
         return await GetList();
     }
+
+    public async Task<string> UpdateRight(RightModel rightmodel)
+    {
+        var right = await GetByHashKey(rightmodel.RightId);
+        if (right == null) return "Right does not exist";
+        else
+        {
+            await SaveAsync(rightmodel);
+            return rightmodel.RightId;
+        }
+    }
 }

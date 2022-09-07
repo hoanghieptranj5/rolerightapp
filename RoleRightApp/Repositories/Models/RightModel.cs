@@ -9,7 +9,7 @@ public class RightModel
     public string RightId { get; set; }
 
     [DynamoDBProperty("createdAt")]
-    public DateTime CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
     [DynamoDBProperty("description")]
     public string Description { get; set; }
