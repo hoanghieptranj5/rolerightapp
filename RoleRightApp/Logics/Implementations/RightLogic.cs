@@ -17,10 +17,12 @@ public class RightLogic : IRightLogic
         _mapper = mapper;
     }
 
-    public async Task<string> UpdateRight(RightModel right)
+    public async Task<string> UpdateRight(string id, RightRequestModel right)
     {
-        
-        var result = await _rightRepository.UpdateRight(right);
+        var model = _mapper.Map<RightRequestModel, RightModel>(right);
+        model.RightId = id;
+        model.CreatedAt = DateTime.Now;
+        var result = await _rightRepository.UpdateRight(model);
 
         return result;
     }

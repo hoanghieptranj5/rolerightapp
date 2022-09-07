@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using RoleRightApp.Logics.Abstractions;
 using RoleRightApp.Repositories.Abstractions;
 using RoleRightApp.Repositories.Models;
+using RoleRightApp.RequestModels;
 
 namespace RoleRightApp.Controllers;
 
-[Authorize]
+[AllowAnonymous]
 [Route("api/[controller]")]
 public class RightController: ControllerBase
 {
@@ -28,10 +29,10 @@ public class RightController: ControllerBase
         return Ok(result);
     }
     
-    [HttpPut]
-    public async Task<IActionResult> UpdateRight(RightModel rightModel)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateRight(string id, [FromBody] RightRequestModel request)
     {
-        var right = await _rightLogic.UpdateRight(rightModel);
+        var right = await _rightLogic.UpdateRight(id, request);
         return Ok(right);
     }
 }

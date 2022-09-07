@@ -5,5 +5,5 @@ namespace RoleRightApp.Logics.Abstractions;
 
 public interface IRightLogic
 {
-    Task<string> UpdateRight(RightModel right);
+    Task<string> UpdateRight(string id, RightRequestModel right);
 }
