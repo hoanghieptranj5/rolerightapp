@@ -11,7 +11,9 @@ public static class RepositoriesConfigurations
     {
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IRightRepository, RightRepository>();
 
+        services.AddScoped<IRightLogic, RightLogic>();
         services.AddScoped<IUserLogic, UserLogic>();
     }
 }
