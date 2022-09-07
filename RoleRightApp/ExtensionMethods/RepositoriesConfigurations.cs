@@ -15,5 +15,6 @@ public static class RepositoriesConfigurations
 
         services.AddScoped<IRightLogic, RightLogic>();
         services.AddScoped<IUserLogic, UserLogic>();
+        services.AddScoped<IRightLogic, RightLogic>();
     }
 }

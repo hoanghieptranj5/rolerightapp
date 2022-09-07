@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 
-namespace RoleRightApp.RequestModels
+namespace RoleRightApp.RequestModels;
+
+public class RightRequestModel
 {
-    public class RightRequestModel
-    {
-        [Required]
-        public string Description { get; set; }
-    }
+    [Required]
+    public string Description { get; set; }
 }
