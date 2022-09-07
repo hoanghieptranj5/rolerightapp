@@ -12,5 +12,11 @@ public class RightModel
     public DateTime? CreatedAt { get; set; }
 
     [DynamoDBProperty("description")]
-    public string Description { get; set; }    
+    public string Description { get; set; }
+
 }
+
+
+
+
+

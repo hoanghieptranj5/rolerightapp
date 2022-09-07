@@ -10,6 +10,11 @@ public class RightRepository : HashKeyOnlyRepositoryBase<RightModel, string>, IR
     {
     }
 
+    public async Task<List<RightModel>> GetAllRights()
+    {
+        return await GetList();
+    }
+
     public async Task<string> UpdateRight(RightModel rightmodel)
     {
         var right = await GetByHashKey(rightmodel.RightId);
