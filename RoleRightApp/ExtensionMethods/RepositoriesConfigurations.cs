@@ -13,6 +13,7 @@ public static class RepositoriesConfigurations
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRightRepository, RightRepository>();
 
+        services.AddScoped<IRightLogic, RightLogic>();
         services.AddScoped<IUserLogic, UserLogic>();
         services.AddScoped<IRightLogic, RightLogic>();
     }

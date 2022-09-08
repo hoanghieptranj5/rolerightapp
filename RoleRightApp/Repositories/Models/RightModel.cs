@@ -3,6 +3,7 @@
 namespace RoleRightApp.Repositories.Models;
 
 [DynamoDBTable("right")]
+
 public class RightModel
 {
     [DynamoDBHashKey("rightId")]
