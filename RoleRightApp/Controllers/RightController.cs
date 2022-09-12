@@ -7,7 +7,6 @@ using RoleRightApp.RequestModels;
 
 namespace RoleRightApp.Controllers;
 
-[AllowAnonymous]
 [Route("api/[controller]")]
 public class RightController : ControllerBase
 {
@@ -20,6 +19,7 @@ public class RightController : ControllerBase
         _rightLogic = rightLogic;
     }
 
+    //[Authorize(Roles= "danny")]
     [HttpGet("get_all_rights")]
     public async Task<IActionResult> GetAllRights()
     {

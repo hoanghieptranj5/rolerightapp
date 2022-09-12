@@ -1,7 +1,6 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 using RoleRightApp.Repositories.Abstractions;
 using RoleRightApp.Repositories.Models;
-using RoleRightApp.RequestModels;
 
 namespace RoleRightApp.Repositories.Implementations;
 
