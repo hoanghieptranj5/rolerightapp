@@ -5,7 +5,7 @@ namespace RoleRightApp.Repositories.Models;
 [DynamoDBTable("requests")]
 public class RequestModel
 {
-    [DynamoDBHashKey("RequestId")]
+    [DynamoDBHashKey("requestId")]
     public string? RequestId { get; set; }
 
     [DynamoDBProperty("employeeId")]

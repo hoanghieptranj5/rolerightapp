@@ -5,5 +5,4 @@ namespace RoleRightApp.Logics.Abstractions;
 public interface IRequestLogic
 {
     Task<List<RequestModel>> GetAllRequest();
-
 }

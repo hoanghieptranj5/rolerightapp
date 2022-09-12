@@ -16,6 +16,7 @@ public class RightLogic : IRightLogic
         _rightRepository = rightRepository;
         _mapper = mapper;
     }
+
     public async Task<List<RightModel>> GetAllRight()
     {
         return await _rightRepository.GetAllRights();
@@ -30,6 +31,7 @@ public class RightLogic : IRightLogic
 
         return result;
     }
+
     public async Task<string> SaveRight(RightRequestModel rightModel)
     {
         var mapped = _mapper.Map<RightRequestModel, RightModel>(rightModel);

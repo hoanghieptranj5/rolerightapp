@@ -8,10 +8,12 @@ namespace RoleRightApp.Controllers;
 public class RequestController : ControllerBase
 {
     private readonly IRequestLogic _requestLogic;
+
     public RequestController(IRequestLogic requestLogic)
     {
         _requestLogic = requestLogic;
     }
+
     [HttpGet]
     public async Task<List<RequestModel>> GetAllRequest()
     {

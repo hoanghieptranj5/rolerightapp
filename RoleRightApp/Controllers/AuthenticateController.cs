@@ -44,7 +44,6 @@ public class AuthenticateController : ControllerBase
         {
             new(ClaimTypes.Name, userName),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new("abc", "danny")
         };
 
         var authSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));

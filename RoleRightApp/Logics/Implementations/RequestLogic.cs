@@ -12,6 +12,7 @@ public class RequestLogic : IRequestLogic
     {
         _requestRepository = requestRepository;
     }
+
     public async Task<List<RequestModel>> GetAllRequest()
     {
        return await _requestRepository.GetAllRequest();

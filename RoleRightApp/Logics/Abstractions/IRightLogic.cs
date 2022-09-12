@@ -9,5 +9,4 @@ public interface IRightLogic
     Task<RightModel> GetRight(string rightId);
     Task<string> SaveRight(RightRequestModel rightModel);
     Task<string> UpdateRight(string id, RightRequestModel right);
-
 }
