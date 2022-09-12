@@ -2,13 +2,12 @@
 using RoleRightApp.Repositories.Models;
 using RoleRightApp.RequestModels;
 
-namespace RoleRightApp.Mappers
+namespace RoleRightApp.Mappers;
+
+public class RightMapperProfile : Profile
 {
-    public class RightMapperProfile : Profile
+    public RightMapperProfile()
     {
-        public RightMapperProfile()
-        {
-            CreateMap<RightRequestModel, RightModel>();
-        }
+        CreateMap<RightRequestModel, RightModel>();
     }
 }
