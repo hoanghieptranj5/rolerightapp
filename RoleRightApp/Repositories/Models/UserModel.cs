@@ -22,4 +22,6 @@ public class UserModel
     
     [DynamoDBProperty("password")]
     public string Password { get; set; }
+    [DynamoDBProperty("role")]
+    public string Role { get; set; }
 }

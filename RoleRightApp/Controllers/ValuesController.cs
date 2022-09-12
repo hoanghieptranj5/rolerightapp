@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RoleRightApp.Constants;
 using RoleRightApp.Repositories.Abstractions;
 
 namespace RoleRightApp.Controllers;
@@ -16,6 +17,7 @@ public class ValuesController : ControllerBase
     }
 
     // GET api/values
+    [Authorize(Roles = Roles.Employee)]
     [HttpGet("allRoles")]
     public async Task<IActionResult> GetAllRoles()
     {
