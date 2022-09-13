@@ -6,7 +6,7 @@ using Amazon.DynamoDBv2.DataModel;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RoleRightApp.ExtensionMethods;
-
+using System.Security.Claims;
 
 namespace RoleRightApp;
 

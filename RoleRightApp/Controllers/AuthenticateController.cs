@@ -1,8 +1,10 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using RoleRightApp.Constants;
 using RoleRightApp.Logics.Abstractions;
 using RoleRightApp.Logics.Helpers;
 using RoleRightApp.Repositories.Models;
@@ -44,6 +46,7 @@ public class AuthenticateController : ControllerBase
         {
             new(ClaimTypes.Name, userName),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new(ClaimTypes.Role, existingUser.Role == null ? "Employee" : existingUser.Role)
         };
 
         var authSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
@@ -62,6 +65,7 @@ public class AuthenticateController : ControllerBase
         });
     }
 
+    [Authorize(Roles = Roles.Admin)]
     [HttpPost]
     [Route("register")]
     public async Task<IActionResult> Register(RegisterRequestModel requestModel)
