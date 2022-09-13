@@ -7,7 +7,6 @@ using RoleRightApp.RequestModels;
 
 namespace RoleRightApp.Controllers;
 
-[AllowAnonymous]
 [Route("api/[controller]")]
 public class RightController : ControllerBase
 {

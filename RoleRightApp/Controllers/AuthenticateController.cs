@@ -39,11 +39,11 @@ public class AuthenticateController : ControllerBase
         {
             throw new Exception("User doesn't exist!");
         }
-        
+
         var authClaims = new List<Claim>
         {
             new(ClaimTypes.Name, userName),
-            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
 
         var authSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
