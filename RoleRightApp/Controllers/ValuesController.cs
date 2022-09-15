@@ -22,7 +22,6 @@ public class ValuesController : ControllerBase
     public async Task<IActionResult> GetAllRoles()
     {
         var result = await _roleRepository.GetAllRoles();
-        
         return Ok(result);
     }
     

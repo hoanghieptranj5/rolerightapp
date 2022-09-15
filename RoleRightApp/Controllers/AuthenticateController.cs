@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using RoleRightApp.Constants;
+using RoleRightApp.DannyHandler;
 using RoleRightApp.Logics.Abstractions;
 using RoleRightApp.Logics.Helpers;
 using RoleRightApp.Repositories.Models;
@@ -65,7 +66,8 @@ public class AuthenticateController : ControllerBase
         });
     }
 
-    [Authorize(Roles = Roles.Admin)]
+    // [Authorize(Roles = Roles.Admin)]
+    [RoleHandler = "Admin"]
     [HttpPost]
     [Route("register")]
     public async Task<IActionResult> Register(RegisterRequestModel requestModel)

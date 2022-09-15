@@ -20,6 +20,7 @@ public class RightController : ControllerBase
         _rightLogic = rightLogic;
     }
 
+    [Authorize]
     [HttpGet("get_all_rights")]
     public async Task<IActionResult> GetAllRights()
     {

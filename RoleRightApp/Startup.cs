@@ -7,6 +7,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RoleRightApp.ExtensionMethods;
 using System.Security.Claims;
+using RoleRightApp.Middleware;
+using RoleRightApp.DannyHandler;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RoleRightApp;
 
@@ -28,7 +31,9 @@ public class Startup
         services.AddAWSService<IAmazonDynamoDB>();
 
         services.AddScoped<IDynamoDBContext, DynamoDBContext>();
-        
+        // services.AddScoped<IAuthorizationHandler, PoliciesAuthorizationHandler>();
+        services.AddScoped<IAuthorizationHandler, RoleHandler>();
+
         services.AddCors();
         
         services.AddControllers();
@@ -89,6 +94,8 @@ public class Startup
             c.RoutePrefix = "swagger";
         });
 
+        // app.UseNewMiddleware();
+        // app.UseMiddleware<NewMiddleware>();
         app.UseAuthentication();
         app.UseAuthorization();
 
