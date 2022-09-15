@@ -22,7 +22,7 @@ public class RequestController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<string> CreateRequest(RequestRequestModel requestRequestModel) 
+    public async Task<string> CreateRequest([FromBody] RequestRequestModel requestRequestModel) 
     {
         return await _requestLogic.CreateRequest(requestRequestModel);
     }
