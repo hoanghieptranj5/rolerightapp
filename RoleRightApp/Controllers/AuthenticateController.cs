@@ -9,6 +9,9 @@ using RoleRightApp.Logics.Abstractions;
 using RoleRightApp.Logics.Helpers;
 using RoleRightApp.Repositories.Models;
 using RoleRightApp.RequestModels;
+using RoleRightApp.Services.Abstractions;
+using RoleRightApp.Services.Implementations;
+using RoleRightApp.Services.Models;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace RoleRightApp.Controllers;
@@ -19,11 +22,13 @@ public class AuthenticateController : ControllerBase
 {
     private readonly IConfiguration _configuration;
     private readonly IUserLogic _userLogic;
-    
-    public AuthenticateController(IConfiguration configuration, IUserLogic userLogic)
+    private readonly IStorageService _storeService;
+
+    public AuthenticateController(IConfiguration configuration, IUserLogic userLogic, IStorageService storeService)
     {
         _configuration = configuration;
         _userLogic = userLogic;
+        _storeService = storeService;
     }
 
     [HttpPost]
@@ -68,9 +73,13 @@ public class AuthenticateController : ControllerBase
     [Authorize(Roles = Roles.Admin)]
     [HttpPost]
     [Route("register")]
-    public async Task<IActionResult> Register(RegisterRequestModel requestModel)
+    public async Task<IActionResult> Register([FromForm] RegisterRequestModel requestModel)
     {
+        var objUpload = new S3ObjectUpload(requestModel.File!, "shane-dotnet-lambda-deploy", "file-excel");
+
+        var responseUploadFile = await _storeService.UploadFileAsync(objUpload);
+
         var registered = await _userLogic.SaveUser(requestModel);
-        return Ok(registered);
+        return Ok(registered + "&" +responseUploadFile);
     }
 }
