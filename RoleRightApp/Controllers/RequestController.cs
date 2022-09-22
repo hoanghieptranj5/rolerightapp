@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using RoleRightApp.Constants;
 using RoleRightApp.Logics.Abstractions;
 using RoleRightApp.Repositories.Models;
 using RoleRightApp.RequestModels;
 
 namespace RoleRightApp.Controllers;
-
+[Authorize]
 [Route("api/[controller]")]
 public class RequestController : ControllerBase
 {
@@ -21,6 +23,7 @@ public class RequestController : ControllerBase
         return await _requestLogic.GetAllRequest();
     }
 
+    [Authorize(Roles = Roles.Employee)]
     [HttpPost]
     public async Task<string> CreateRequest([FromBody] RequestRequestModel requestRequestModel) 
     {
