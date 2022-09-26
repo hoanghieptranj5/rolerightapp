@@ -14,4 +14,11 @@ public class RequestRepository : HashKeyOnlyRepositoryBase<RequestModel, string>
     {
         return await GetList();
     }
+
+    public async Task<string> CreateRequest(RequestModel requestModel)
+    {
+        var requestId = Guid.NewGuid().ToString();
+        await SaveAsync(requestModel);
+        return requestId;
+    }
 }
