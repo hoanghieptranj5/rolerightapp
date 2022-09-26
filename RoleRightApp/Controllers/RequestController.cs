@@ -6,7 +6,6 @@ using RoleRightApp.Repositories.Models;
 using RoleRightApp.RequestModels;
 
 namespace RoleRightApp.Controllers;
-[Authorize]
 [Route("api/[controller]")]
 public class RequestController : ControllerBase
 {
@@ -17,16 +16,18 @@ public class RequestController : ControllerBase
         _requestLogic = requestLogic;
     }
 
+    [Authorize]
     [HttpGet]
-    public async Task<List<RequestModel>> GetAllRequest()
+    public async Task<IEnumerable<RequestModel>> GetAllRequest()
     {
         return await _requestLogic.GetAllRequest();
     }
 
     [Authorize(Roles = Roles.Employee)]
     [HttpPost]
-    public async Task<string> CreateRequest([FromBody] RequestRequestModel requestRequestModel) 
+    public async Task<IActionResult> CreateRequest([FromBody] RequestRequestModel requestRequestModel) 
     {
-        return await _requestLogic.CreateRequest(requestRequestModel);
+        var createdId = await _requestLogic.CreateRequest(requestRequestModel);
+        return Created(string.Empty, createdId);
     }
 }

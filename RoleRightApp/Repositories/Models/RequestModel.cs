@@ -12,7 +12,7 @@ public class RequestModel
     public string? EmployeeId { get; set; }
 
     [DynamoDBProperty("approveBy")]
-    public string? ApproveBy { get; set; } = "";
+    public string? ApproveBy { get; set; } = string.Empty;
 
     [DynamoDBProperty("status")]
     public string? Status { get; set; } = AbsenceStatus.Pending;

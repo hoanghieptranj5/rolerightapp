@@ -5,6 +5,6 @@ namespace RoleRightApp.Logics.Abstractions;
 
 public interface IRequestLogic
 {
-    Task<List<RequestModel>> GetAllRequest();
+    Task<IEnumerable<RequestModel>> GetAllRequest();
     Task<string> CreateRequest(RequestRequestModel requestRequestModel);
 }
