@@ -5,5 +5,5 @@ namespace RoleRightApp.Services.Abstractions;
 
 public interface IStorageService
 {
-    Task<string> UploadFileAsync(S3ObjectUpload obj);
+    Task<string> UploadFileAsync(S3ObjectUpload s3RequestUpload);
 }
