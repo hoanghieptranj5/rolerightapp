@@ -1,6 +1,7 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
 using RoleRightApp.Services.Abstractions;
+using RoleRightApp.Services.Helpers;
 using RoleRightApp.Services.Models;
 
 namespace RoleRightApp.Services.Implementations;
@@ -14,19 +15,34 @@ public class StorageService : IStorageService
         _s3Client = s3Client;
     }
 
-    public async Task<string> UploadFileAsync(S3ObjectUpload obj)
+    public async Task<string> UploadFileAsync(S3ObjectUpload s3RequestUpload)
     {
-        var path = string.IsNullOrEmpty(obj.Prefix) ? obj.File.FileName : $"{obj.Prefix?.TrimEnd('/')}/{obj.File.FileName}";
-        var bucketExists = await _s3Client.DoesS3BucketExistAsync(obj.BucketName);
-        if (!bucketExists) return $"Bucket {obj.BucketName} does not exist.";
-        var request = new PutObjectRequest()
+        var path = S3Helper.GetS3ObjectKey(s3RequestUpload.Prefix, s3RequestUpload.File);
+        var bucketExists = false;
+        var errorMessage = string.Empty;
+
+        try
         {
-            BucketName = obj.BucketName,
-            Key = path,
-            InputStream = obj.File.OpenReadStream()
-        };
-        request.Metadata.Add("Content-Type", obj.File.ContentType);
-        await _s3Client.PutObjectAsync(request);
-        return $"{obj.File.FileName} upload succesfully.";
+            bucketExists = await _s3Client.DoesS3BucketExistAsync(s3RequestUpload.BucketName);
+            errorMessage = $"Bucket {s3RequestUpload.BucketName} does not exist.";
+        }
+        catch(Exception ex)
+        {
+            errorMessage = $"Fail to connect to S3";
+        }
+
+        if (bucketExists)
+        {
+            var request = new PutObjectRequest()
+            {
+                BucketName = s3RequestUpload.BucketName,
+                Key = path,
+                InputStream = s3RequestUpload.File.OpenReadStream()
+            };
+            request.Metadata.Add("Content-Type", s3RequestUpload.File.ContentType);
+            await _s3Client.PutObjectAsync(request);
+            return $"{s3RequestUpload.File.FileName} upload succesfully.";
+        }
+        return errorMessage;
     }
 }
