@@ -15,4 +15,6 @@ public class RegisterRequestModel
     public string Password { get; set; }
 
     public string? Role { get; set; } = "Employee";
+
+    public IFormFile? File { get; set; }
 }

@@ -7,6 +7,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RoleRightApp.ExtensionMethods;
 using System.Security.Claims;
+using RoleRightApp.Services.Abstractions;
+using RoleRightApp.Services.Implementations;
+using Amazon.S3;
 
 namespace RoleRightApp;
 
@@ -54,6 +57,9 @@ public class Startup
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
+
+        services.AddAWSService<IAmazonS3>();
+        services.AddScoped<IStorageService, StorageService>();
 
         // Custom Configurations HERE
         services.ConfigureRepositories();
