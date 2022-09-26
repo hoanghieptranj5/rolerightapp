@@ -17,9 +17,10 @@ public class RequestLogic : IRequestLogic
         _mapper = mapper;
     }
 
-    public async Task<List<RequestModel>> GetAllRequest()
+    public async Task<IEnumerable<RequestModel>> GetAllRequest()
     {
-       return await _requestRepository.GetAllRequest();
+       var requestList =  await _requestRepository.GetAllRequest();
+       return requestList;
     }
 
     public async Task<string> CreateRequest(RequestRequestModel requestModel) {
