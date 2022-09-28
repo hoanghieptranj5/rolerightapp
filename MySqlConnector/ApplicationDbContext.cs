@@ -3,7 +3,7 @@ using MySqlConnector.Models;
 
 namespace MySqlConnector;
 
-public class RoleRightDbContext : DbContext
+public class ApplicationDbContext : DbContext
 {
     public DbSet<Book> Book { get; set; }
     public DbSet<Publisher> Publisher { get; set; }

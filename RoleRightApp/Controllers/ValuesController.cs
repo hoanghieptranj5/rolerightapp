@@ -1,18 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MySqlConnector;
 using RoleRightApp.Constants;
 using RoleRightApp.Repositories.Abstractions;
 
 namespace RoleRightApp.Controllers;
 
-[Authorize]
+[AllowAnonymous]
 [Route("api/[controller]")]
 public class ValuesController : ControllerBase
 {
     private readonly IRoleRepository _roleRepository;
+    private readonly ApplicationDbContext _dbContext;
 
-    public ValuesController(IRoleRepository roleRepository)
+    public ValuesController(ApplicationDbContext dbContext, IRoleRepository roleRepository)
     {
+        _dbContext = dbContext;
         _roleRepository = roleRepository;
     }
 
@@ -30,7 +33,8 @@ public class ValuesController : ControllerBase
     [HttpGet]
     public IEnumerable<string> Get()
     {
-        return new string[] { "value1", "value2" };
+        var books = _dbContext.Book.Select(x => x.Title).ToList();
+        return books;
     }
 
     // GET api/values/5

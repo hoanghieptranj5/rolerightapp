@@ -4,10 +4,7 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Microsoft.IdentityModel.Tokens;
 using RoleRightApp.ExtensionMethods;
-using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
-using MySqlConnector.Models;
-using System.Security.Claims;
 using RoleRightApp.Services.Abstractions;
 using RoleRightApp.Services.Implementations;
 using Amazon.S3;
@@ -61,6 +58,8 @@ public class Startup
 
         services.AddAWSService<IAmazonS3>();
         services.AddScoped<IStorageService, StorageService>();
+
+        services.AddDbContext<ApplicationDbContext>();
 
         // Custom Configurations HERE
         services.ConfigureRepositories();
