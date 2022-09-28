@@ -1,5 +1,5 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
-
+using RoleRightApp.Constants;
 namespace RoleRightApp.Repositories.Models;
 
 [DynamoDBTable("requests")]
@@ -12,10 +12,10 @@ public class RequestModel
     public string? EmployeeId { get; set; }
 
     [DynamoDBProperty("approveBy")]
-    public string? ApproveBy { get; set; }
+    public string? ApproveBy { get; set; } = "";
 
     [DynamoDBProperty("status")]
-    public string? Status { get; set; }
+    public string? Status { get; set; } = AbsenceStatus.Pending;
 
     [DynamoDBProperty("createdAt")]
     public DateTime CreatedAt { get; set; }
