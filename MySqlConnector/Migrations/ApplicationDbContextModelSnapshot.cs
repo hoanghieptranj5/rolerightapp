@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MySqlConnector;
 
+#nullable disable
+
 namespace MySqlConnector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
@@ -13,8 +15,8 @@ namespace MySqlConnector.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "5.0.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("MySqlConnector.Models.Book", b =>
                 {
@@ -43,7 +45,7 @@ namespace MySqlConnector.Migrations
 
                     b.HasIndex("PublisherID");
 
-                    b.ToTable("Book");
+                    b.ToTable("Book", (string)null);
                 });
 
             modelBuilder.Entity("MySqlConnector.Models.Publisher", b =>
@@ -58,7 +60,7 @@ namespace MySqlConnector.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Publisher");
+                    b.ToTable("Publisher", (string)null);
                 });
 
             modelBuilder.Entity("MySqlConnector.Models.Book", b =>
