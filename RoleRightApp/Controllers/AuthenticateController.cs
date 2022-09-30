@@ -75,11 +75,11 @@ public class AuthenticateController : ControllerBase
     [Route("register")]
     public async Task<IActionResult> Register([FromForm] RegisterRequestModel requestModel)
     {
-        var objUpload = new S3ObjectUpload(requestModel.File!, "shane-dotnet-lambda-deploy", "file-excel");
+        var objUpload = new S3ObjectUpload(requestModel.File!, BucketName.DotnetLambdaDeploy, FolderName.FileExcel);
 
         var responseUploadFile = await _storeService.UploadFileAsync(objUpload);
 
         var registered = await _userLogic.SaveUser(requestModel);
-        return Ok(registered + "&" +responseUploadFile);
+        return Ok($"{registered} & {responseUploadFile}");
     }
 }
